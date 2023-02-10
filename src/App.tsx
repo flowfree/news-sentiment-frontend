@@ -2,7 +2,9 @@ import React from 'react'
 
 function App() {
   return (
-    <h1>News Sentiment</h1>
+    <h1 className="text-3xl font-bold">
+      News Sentiment
+    </h1>
   )
 }
 
