@@ -17,7 +17,8 @@ steps:
         "--platform", "managed",
         "--region", "${_REGION}",
         "--image", "gcr.io/${PROJECT_ID}/${_SERVICE_NAME}",
-        "--allow-unauthenticated"
+        "--member", "allUsers", 
+        "--role", "roles/run.invoker",
       ]
 
 substitutions:
