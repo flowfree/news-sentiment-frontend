@@ -1,11 +1,14 @@
 import React from 'react'
+import NewsURLInput from './features/training-data/NewsURLInput'
 
 function App() {
   return (
-    <h1 className="text-3xl font-bold">
-      News Sentiment
-    </h1>
+    <div className="container mx-auto">
+      <NewsURLInput />
+    </div>
   )
 }
+
+
 
 export default App
