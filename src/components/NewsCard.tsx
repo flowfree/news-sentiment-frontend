@@ -1,3 +1,5 @@
+import Moment from 'react-moment'
+
 interface NewsCardProps {
   news: News
 }
@@ -45,13 +47,16 @@ export default function NewsCard({ news }: NewsCardProps) {
             {news.title}
           </a>
         </h3>
-        <p className="text-sm text-gray-500 line-clamp-2">
+        <p className="text-sm text-gray-500 line-clamp-2" title={news.description}>
           {news.description}
         </p>
         <div className="mt-4 flex flex-1">
           <p className="grow text-sm font-medium text-gray-900">
             {news.site.name}
           </p>
+          <Moment className="text-sm text-gray-500" format="MMM DD, YYYY">
+            {news.publishedTime}
+          </Moment>
         </div>
       </div>
     </div>

@@ -14,6 +14,7 @@ interface News {
   imageUrl: string
   sentiment: 'positive' | 'neutral' | 'negative'
   site: Site
+  publishedTime: string
   createdAt: string
   updatedAt: string
 }
