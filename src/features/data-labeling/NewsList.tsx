@@ -2,48 +2,73 @@ import { useState, useEffect } from 'react'
 import NewsService from '../../services/NewsService'
 import NewsCard from '../../components/NewsCard'
 import PrimaryButton from '../../components/PrimaryButton'
+import FilterForm from './FilterForm'
+
+const NEWS_ENDPOINT_PATH = '/data-labeling/news'
 
 export default function NewsList() {
   const [newsList, setNewsList] = useState<News[]>([])
-  const [nextUrl, setNextUrl] = useState('/data-labeling/news')
+  const [url, setUrl] = useState(NEWS_ENDPOINT_PATH)
+  const [nextUrl, setNextUrl] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const newsService = new NewsService()
-  
+
   useEffect(() => {
-    loadNewsList()
     document.title = 'Training Data'
   }, [])
-
-  async function loadNewsList() {
-    if (nextUrl) {
-      try {
-        setIsLoading(true)
-        const response = await newsService.getNewsList(nextUrl)
-        setNewsList([...newsList, ...response.data.results])
-        setNextUrl(response.data.next)
-      } catch (e) {
-        console.error(e)
-      } finally {
-        setIsLoading(false)
+  
+  useEffect(() => {
+    async function loadNewsList() {
+      if (url) {
+        try {
+          setIsLoading(true)
+          const response = await newsService.getNewsList(url)
+          console.log(response.data.results)
+          if (url === NEWS_ENDPOINT_PATH) {
+            setNewsList(response.data.results)
+          } else {
+            setNewsList([...newsList, ...response.data.results])
+          }
+          setNextUrl(response.data.next)
+        } catch (e) {
+          console.error(e)
+        } finally {
+          setIsLoading(false)
+          setUrl('')
+        }
       }
     }
-  }
+
+    loadNewsList()
+  }, [url])
 
   async function deleteNews(id: number) {
     try {
       await newsService.deleteNews(id)
+      setNewsList(newsList.filter((n) => n.id !== id))
     } catch (e) {
       console.error(e)
     }
   }
 
+  function handleSearch(query: string) {
+  }
+
+  function handleRefresh() {
+    setUrl(NEWS_ENDPOINT_PATH)
+  }
+
   function handleLoadMore(e: React.MouseEvent) {
     e.preventDefault()
-    loadNewsList()
+    setUrl(nextUrl)
   }
 
   return (
     <div className="mx-auto max-w-2xl lg:max-w-7xl">
+      <FilterForm 
+        onSearch={handleSearch}
+        onRefresh={handleRefresh}
+      />
       <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-8">
         {newsList.map((news) => (
           <NewsCard 

@@ -7,11 +7,9 @@ interface NewsCardProps {
 
 export default function NewsCard({ news, onDelete }: NewsCardProps) {
   const [deleteConfirmation, setDeleteConfirmation] = useState(false)
-  const [destroyed, setDestroyed] = useState(false)
 
   function handleDelete(id: number) {
     if (onDelete) {
-      setDestroyed(true)
       onDelete(id)
     }
   }
@@ -37,7 +35,7 @@ export default function NewsCard({ news, onDelete }: NewsCardProps) {
   }
 
   return (
-    <div className={(destroyed ? 'hidden' : '') + ` group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white`}>
+    <div className={` group relative flex flex-col overflow-hidden rounded-lg border bg-white ${deleteConfirmation ? 'border-red-400' : 'border-gray-200'}`}>
       <div className="aspect-w-4 aspect-h-3 bg-gray-200 sm:aspect-none sm:h-48">
         <a href={news.url} target="_blank">
           <img
@@ -91,17 +89,17 @@ interface DeleteConfirmationProps {
 function DeleteConfirmation({ onConfirm, onCancel }: DeleteConfirmationProps) {
   return (
     <div className="mt-4 flex flex-row-reverse gap-x-1">
-      <button className="text-sm text-green-600 hover:text-green-400" onClick={e => onCancel()}>
+      <button className="text-sm text-green-600 hover:text-green-400" onClick={e => onCancel()} title="Cancel">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
-      <button className="text-sm text-red-600 hover:text-red-400" onClick={e => onConfirm() }>
+      <button className="text-sm text-red-600 hover:text-red-400" onClick={e => onConfirm() } title="Yes">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
         </svg>
       </button>
-      <span className="text-red-600 text-sm font-bold">
+      <span className="pr-4 text-red-600 text-sm font-bold">
         Delete this item?
       </span>
     </div>
