@@ -54,11 +54,6 @@ export default function NewsCard({ news }: NewsCardProps) {
           <p className="grow text-sm font-medium text-gray-900">
             {news.site.name}
           </p>
-          {news.publishedTime && (
-            <Moment className="text-sm text-gray-500" format="MMM DD, YYYY">
-              {news.publishedTime}
-            </Moment>
-          )}
         </div>
       </div>
     </div>
