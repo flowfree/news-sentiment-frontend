@@ -90,16 +90,16 @@ function DeleteConfirmation({ onConfirm, onCancel }: DeleteConfirmationProps) {
   return (
     <div className="mt-4 flex flex-row-reverse gap-x-1">
       <button className="text-sm text-green-600 hover:text-green-400" onClick={e => onCancel()} title="Cancel">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.0} stroke="currentColor" className="w-5 h-5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
       <button className="text-sm text-red-600 hover:text-red-400" onClick={e => onConfirm() } title="Yes">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.0} stroke="currentColor" className="w-5 h-5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
         </svg>
       </button>
-      <span className="pr-4 text-red-600 text-sm font-bold">
+      <span className="text-red-600 text-sm font-bold">
         Delete this item?
       </span>
     </div>
