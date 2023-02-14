@@ -5,8 +5,8 @@ class NewsService extends BaseService {
     return this.client.post(`/data-labeling/news`, { url, sentiment })
   }
   
-  getNewsList(nextUrl?: string) {
-    return this.client.get(nextUrl ? nextUrl : `/data-labeling/news?limit=4`)
+  getNewsList(nextUrl: string) {
+    return this.client.get(nextUrl)
   }
 }
 

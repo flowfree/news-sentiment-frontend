@@ -5,7 +5,7 @@ import PrimaryButton from '../../components/PrimaryButton'
 
 export default function NewsList() {
   const [newsList, setNewsList] = useState<News[]>([])
-  const [nextUrl, setNextUrl] = useState('')
+  const [nextUrl, setNextUrl] = useState('/data-labeling/news')
   const [isLoading, setIsLoading] = useState(false)
   
   useEffect(() => {
@@ -14,13 +14,18 @@ export default function NewsList() {
   }, [])
 
   async function loadNewsList() {
-    const service = new NewsService()
-    try {
-      const response = await service.getNewsList(nextUrl)
-      setNewsList([...newsList, ...response.data.results])
-      setNextUrl(response.data.next)
-    } catch (e) {
-      console.error(e)
+    if (nextUrl) {
+      const service = new NewsService()
+      try {
+        setIsLoading(true)
+        const response = await service.getNewsList(nextUrl)
+        setNewsList([...newsList, ...response.data.results])
+        setNextUrl(response.data.next)
+      } catch (e) {
+        console.error(e)
+      } finally {
+        setIsLoading(false)
+      }
     }
   }
 
@@ -36,14 +41,14 @@ export default function NewsList() {
           <NewsCard key={news.id} news={news} />
         ))}
       </div>
-      <div className="mt-5 text-center">
-        <PrimaryButton 
-          className="w-64"
-          onClick={handleLoadMore}
-        >
-          {isLoading ? 'Loading...' : 'Load More'}
-        </PrimaryButton>
-      </div>
+
+      {nextUrl && (
+        <div className="mt-5 text-center">
+          <PrimaryButton onClick={handleLoadMore} className="w-64">
+            {isLoading ? 'Loading...' : 'Load More'}
+          </PrimaryButton>
+        </div>
+      )}
     </div>
   )
 }
