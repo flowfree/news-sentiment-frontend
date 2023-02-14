@@ -8,6 +8,10 @@ class NewsService extends BaseService {
   getNewsList(nextUrl: string) {
     return this.client.get(nextUrl)
   }
+
+  deleteNews(id: number) {
+    return this.client.delete(`/data-labeling/news/${id}`)
+  }
 }
 
 export default NewsService

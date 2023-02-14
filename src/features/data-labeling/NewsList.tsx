@@ -7,6 +7,7 @@ export default function NewsList() {
   const [newsList, setNewsList] = useState<News[]>([])
   const [nextUrl, setNextUrl] = useState('/data-labeling/news')
   const [isLoading, setIsLoading] = useState(false)
+  const newsService = new NewsService()
   
   useEffect(() => {
     loadNewsList()
@@ -15,10 +16,9 @@ export default function NewsList() {
 
   async function loadNewsList() {
     if (nextUrl) {
-      const service = new NewsService()
       try {
         setIsLoading(true)
-        const response = await service.getNewsList(nextUrl)
+        const response = await newsService.getNewsList(nextUrl)
         setNewsList([...newsList, ...response.data.results])
         setNextUrl(response.data.next)
       } catch (e) {
@@ -26,6 +26,14 @@ export default function NewsList() {
       } finally {
         setIsLoading(false)
       }
+    }
+  }
+
+  async function deleteNews(id: number) {
+    try {
+      await newsService.deleteNews(id)
+    } catch (e) {
+      console.error(e)
     }
   }
 
@@ -38,7 +46,11 @@ export default function NewsList() {
     <div className="mx-auto max-w-2xl lg:max-w-7xl">
       <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-8">
         {newsList.map((news) => (
-          <NewsCard key={news.id} news={news} />
+          <NewsCard 
+            key={news.id} 
+            news={news} 
+            onDelete={deleteNews}
+          />
         ))}
       </div>
 
