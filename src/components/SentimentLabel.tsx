@@ -12,11 +12,11 @@ export default function SentimentLabel({ label, onUpdate }: SentimentLabelProps)
 
   function getColor(sentiment: string) {
     if (sentiment === 'positive') {
-      return 'bg-green-100 text-green-800'
+      return 'bg-green-100 text-green-800 border-green-200'
     } else if (sentiment === 'neutral') {
-      return 'bg-gray-100 text-gray-800'
+      return 'bg-gray-100 text-gray-800 border-gray-200'
     } else if (sentiment === 'negative') {
-      return 'bg-pink-100 text-pink-800'
+      return 'bg-pink-100 text-pink-800 border-pink-200'
     }
   }
 
@@ -41,7 +41,7 @@ export default function SentimentLabel({ label, onUpdate }: SentimentLabelProps)
   return (
     <>
       <button 
-        className={`inline-flex items-center rounded ${getColor(currentSentiment)} px-2 py-0.5 text-sm font-medium capitalize`}
+        className={`inline-flex items-center border rounded ${getColor(currentSentiment)} px-2 py-0 text-sm font-medium capitalize`}
         onClick={handleEdit}
         title="Click to edit the sentiment"
       >
@@ -50,7 +50,7 @@ export default function SentimentLabel({ label, onUpdate }: SentimentLabelProps)
       {otherSentiments.map(s => (
         <button 
           key={s}
-          className={`inline-flex items-center rounded ${getColor(s)} px-2 py-0.5 text-sm font-medium capitalize`}
+          className={`inline-flex items-center border rounded ${getColor(s)} px-2 py-0 text-sm font-medium capitalize`}
           onClick={e => handleUpdate(e, s)}
         >
           {s}
