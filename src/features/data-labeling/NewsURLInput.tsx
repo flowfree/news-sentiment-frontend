@@ -2,6 +2,7 @@ import { AxiosError } from 'axios'
 import { useState } from 'react'
 import NewsService from '../../services/NewsService'
 import NewsCard from '../../components/NewsCard'
+import SentimentLabel from '../../components/SentimentLabel'
 
 export default function NewsURLInput() {
   const [url, setUrl] = useState('')
@@ -9,6 +10,7 @@ export default function NewsURLInput() {
   const [newsList, setNewsList] = useState<News[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const newsService = new NewsService()
 
   async function handleAdd(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
@@ -26,8 +28,7 @@ export default function NewsURLInput() {
     try {
       setErrorMessage('')
       setIsSubmitting(true)
-      const service = new NewsService()
-      const response = await service.addNews(url, sentiment)
+      const response = await newsService.addNews(url, sentiment)
       setNewsList([response.data, ...newsList])
       setUrl('')
       setSentiment('')
@@ -40,6 +41,23 @@ export default function NewsURLInput() {
       }
     } finally {
       setIsSubmitting(false)
+    }
+  }
+
+  async function handleDelete(id: number) {
+    try {
+      await newsService.deleteNews(id)
+      setNewsList(newsList.filter((n) => n.id !== id))
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  async function handleUpdateSentiment(news: News, sentiment: string) {
+    try {
+      await newsService.updateNewsSentiment(news, sentiment)
+    } catch (e) {
+      console.error(e)
     }
   }
 
@@ -83,7 +101,17 @@ export default function NewsURLInput() {
       <div className="mx-auto max-w-2xl lg:max-w-7xl">
         <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-8">
           {newsList.map((news) => (
-            <NewsCard key={news.id} news={news} />
+            <NewsCard 
+              key={news.id} 
+              news={news} 
+              onDelete={handleDelete}
+              sentiment={
+                <SentimentLabel 
+                  label={news.sentiment} 
+                  onUpdate={s => handleUpdateSentiment(news, s)}
+                />
+              }
+            />
           ))}
         </div>
       </div>

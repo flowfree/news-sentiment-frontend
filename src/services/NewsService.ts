@@ -9,6 +9,11 @@ class NewsService extends BaseService {
     return this.client.get(nextUrl)
   }
 
+  updateNewsSentiment(news: News, sentiment: string) {
+    const { id, url } = news
+    return this.client.put(`/data-labeling/news/${id}`, { url, sentiment })
+  }
+
   deleteNews(id: number) {
     return this.client.delete(`/data-labeling/news/${id}`)
   }

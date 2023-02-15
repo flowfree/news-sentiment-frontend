@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import NewsService from '../../services/NewsService'
 import NewsCard from '../../components/NewsCard'
+import SentimentLabel from '../../components/SentimentLabel'
 import PrimaryButton from '../../components/PrimaryButton'
 import FilterForm from './FilterForm'
 
@@ -23,7 +24,6 @@ export default function NewsList() {
         try {
           setIsLoading(true)
           const response = await newsService.getNewsList(url)
-          console.log(response.data.results)
           if (url === NEWS_ENDPOINT_PATH) {
             setNewsList(response.data.results)
           } else {
@@ -42,10 +42,18 @@ export default function NewsList() {
     loadNewsList()
   }, [url])
 
-  async function deleteNews(id: number) {
+  async function handleDelete(id: number) {
     try {
       await newsService.deleteNews(id)
       setNewsList(newsList.filter((n) => n.id !== id))
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  async function handleUpdateSentiment(news: News, sentiment: string) {
+    try {
+      await newsService.updateNewsSentiment(news, sentiment)
     } catch (e) {
       console.error(e)
     }
@@ -69,12 +77,19 @@ export default function NewsList() {
         onSearch={handleSearch}
         onRefresh={handleRefresh}
       />
+
       <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-8">
         {newsList.map((news) => (
           <NewsCard 
             key={news.id} 
             news={news} 
-            onDelete={deleteNews}
+            onDelete={handleDelete}
+            sentiment={
+              <SentimentLabel 
+                label={news.sentiment} 
+                onUpdate={s => handleUpdateSentiment(news, s)}
+              />
+            }
           />
         ))}
       </div>
