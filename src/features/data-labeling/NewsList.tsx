@@ -9,6 +9,7 @@ const NEWS_ENDPOINT_PATH = '/data-labeling/news'
 
 export default function NewsList() {
   const [newsList, setNewsList] = useState<News[]>([])
+  const [filters, setFilters] = useState('')
   const [url, setUrl] = useState(NEWS_ENDPOINT_PATH)
   const [nextUrl, setNextUrl] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -23,7 +24,7 @@ export default function NewsList() {
       if (url) {
         try {
           setIsLoading(true)
-          const response = await newsService.getNewsList(url)
+          const response = await newsService.getNewsList(url, filters)
           if (url === NEWS_ENDPOINT_PATH) {
             setNewsList(response.data.results)
           } else {
@@ -60,9 +61,12 @@ export default function NewsList() {
   }
 
   function handleSearch(query: string) {
+    setFilters(query)
+    setUrl(NEWS_ENDPOINT_PATH)
   }
 
   function handleRefresh() {
+    setFilters('')
     setUrl(NEWS_ENDPOINT_PATH)
   }
 
