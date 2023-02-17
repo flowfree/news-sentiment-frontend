@@ -29,6 +29,9 @@ export default function NewsURLInput() {
       setErrorMessage('')
       setIsSubmitting(true)
       const response = await newsService.addNews(url, sentiment)
+      if (newsList.length == 4) {
+        newsList.pop()
+      } 
       setNewsList([response.data, ...newsList])
       setUrl('')
       setSentiment('')
@@ -99,6 +102,11 @@ export default function NewsURLInput() {
       </div>
 
       <div className="mx-auto max-w-2xl lg:max-w-7xl">
+        {newsList.length > 0 && (
+          <p className="mt-5 mb-2 font-bold">
+            Recently added news
+          </p>
+        )}
         <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-8">
           {newsList.map((news) => (
             <NewsCard 
