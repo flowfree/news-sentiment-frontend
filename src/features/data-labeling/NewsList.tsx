@@ -77,12 +77,14 @@ export default function NewsList() {
 
   return (
     <div className="mx-auto max-w-2xl lg:max-w-7xl">
+
       <FilterForm 
+        className="mt-10"
         onSearch={handleSearch}
         onRefresh={handleRefresh}
       />
 
-      <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-8">
+      <div className="grid grid-cols-1 mt-5 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-8">
         {newsList.map((news) => (
           <NewsCard 
             key={news.id} 

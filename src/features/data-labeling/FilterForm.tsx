@@ -3,11 +3,12 @@ import PlainButton from '../../components/PlainButton'
 import PrimaryButton from '../../components/PrimaryButton'
 
 interface Props {
+  className?: string
   onSearch: (query: string) => void
   onRefresh: () => void
 }
 
-export default function FilterForm({ onSearch, onRefresh }: Props) {
+export default function FilterForm({ className, onSearch, onRefresh }: Props) {
   const [query, setQuery] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -23,7 +24,7 @@ export default function FilterForm({ onSearch, onRefresh }: Props) {
   }
 
   return (
-    <div className="flex gap-10">
+    <div className={`flex gap-10 ${className}`}>
       <form method="post" action="" onSubmit={handleSubmit} className="grow flex gap-2">
         <label htmlFor="query" className="font-bold pt-2">
           Search:

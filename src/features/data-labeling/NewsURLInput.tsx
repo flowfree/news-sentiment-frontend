@@ -65,7 +65,7 @@ export default function NewsURLInput() {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full mt-10">
       <div className="max-w-4xl">
         <form method="post" action="" className="w-full flex gap-2">
           <input 
