@@ -17,11 +17,8 @@ export default function Layout({ children }: LayoutProps) {
               </Link>
             </div>
             <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-              <Link to="/data-labeling/add" className='border-transparent hover:border-indigo-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'>
-                Add data
-              </Link>
-              <Link to="/data-labeling/list" className="border-transparent hover:border-indigo-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                View all data
+              <Link to="/training-data" className='border-transparent hover:border-indigo-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'>
+                Training Data
               </Link>
             </div>
           </div>

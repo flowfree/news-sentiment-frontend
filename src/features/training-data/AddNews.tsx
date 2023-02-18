@@ -4,7 +4,7 @@ import NewsService from '../../services/NewsService'
 import NewsCard from '../../components/NewsCard'
 import SentimentLabel from '../../components/SentimentLabel'
 
-export default function NewsURLInput() {
+export default function AddNews() {
   const [url, setUrl] = useState('')
   const [sentiment, setSentiment] = useState('')
   const [newsList, setNewsList] = useState<News[]>([])

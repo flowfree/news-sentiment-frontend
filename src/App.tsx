@@ -4,17 +4,17 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom'
-import NewsURLInput from './features/data-labeling/NewsURLInput'
-import NewsList from './features/data-labeling/NewsList'
+import AddNews from './features/training-data/AddNews'
+import NewsList from './features/training-data/NewsList'
 import Layout from './components/Layout'
 
 export default function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<Navigate to="/data-labeling/add" replace={true} />} />
-        <Route path="/data-labeling/add" element={<NewsURLInput />} />
-        <Route path="/data-labeling/list" element={<NewsList />} />
+        <Route path="/" element={<Navigate to="/training-data" replace={true} />} />
+        <Route path="/training-data" element={<NewsList />} />
+        <Route path="/training-data/add" element={<AddNews />} />
       </Routes>
     </Layout>
   )
