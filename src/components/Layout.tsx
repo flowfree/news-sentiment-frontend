@@ -20,6 +20,9 @@ export default function Layout({ children }: LayoutProps) {
               <Link to="/training-data" className='border-transparent hover:border-indigo-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'>
                 Training Data
               </Link>
+              <Link to="/model-test" className='border-transparent hover:border-indigo-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'>
+                Test
+              </Link>
             </div>
           </div>
         </div>
