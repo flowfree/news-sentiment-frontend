@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react'
 import NewsService from '../../services/NewsService'
 import NewsCard from '../../components/NewsCard'
 import SentimentLabel from '../../components/SentimentLabel'
-import PrimaryButton from '../../components/PrimaryButton'
 import FilterForm from './FilterForm'
-import SecondaryButton from '../../components/SecondaryButton'
+import { PrimaryButton } from '../../components/Buttons'
 
 const NEWS_ENDPOINT_PATH = '/data-labeling/news'
 

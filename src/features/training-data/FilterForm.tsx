@@ -1,12 +1,6 @@
 import { useState } from 'react'
-import PlainButton from '../../components/PlainButton'
-import PrimaryButton from '../../components/PrimaryButton'
-import SecondaryButtonLink from '../../components/SecondaryButtonLink'
-import { 
-  MagnifyingGlassIcon, 
-  ArrowPathIcon, 
-  PlusIcon 
-} from '@heroicons/react/24/outline'
+import { PrimaryButtonLink, SecondaryButton, PlainButton } from '../../components/Buttons'
+import { MagnifyingGlassIcon, ArrowPathIcon, PlusIcon } from '@heroicons/react/24/outline'
 
 interface Props {
   className?: string
@@ -44,18 +38,18 @@ export default function FilterForm({ className, onSearch, onRefresh }: Props) {
           value={query}
           onChange={e => setQuery(e.target.value)}
         />
-        <PrimaryButton>
+        <SecondaryButton>
           <MagnifyingGlassIcon className="w-4 h-4" />
           Search
-        </PrimaryButton>
+        </SecondaryButton>
         <PlainButton className="px-0" onClick={handleRefresh}>
           <ArrowPathIcon className="w-5 h-5" />
         </PlainButton>
       </form>
-      <SecondaryButtonLink to="/training-data/add">
+      <PrimaryButtonLink to="/training-data/add">
         <PlusIcon className="w-4 h-4" />
         Add
-      </SecondaryButtonLink>
+      </PrimaryButtonLink>
     </div>
   )
 }

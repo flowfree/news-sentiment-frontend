@@ -3,7 +3,7 @@ import { useState } from 'react'
 import NewsService from '../../services/NewsService'
 import NewsCard from '../../components/NewsCard'
 import SentimentLabel from '../../components/SentimentLabel'
-import SecondaryButtonLink from '../../components/SecondaryButtonLink'
+import { SecondaryButtonLink } from '../../components/Buttons'
 
 export default function AddNews() {
   const [url, setUrl] = useState('')
