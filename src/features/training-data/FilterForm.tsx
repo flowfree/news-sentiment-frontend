@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import PlainButton from '../../components/PlainButton'
-import PrimaryButtonLink from '../../components/PrimaryButtonLink'
-import SecondaryButton from '../../components/SecondaryButton'
+import PrimaryButton from '../../components/PrimaryButton'
+import SecondaryButtonLink from '../../components/SecondaryButtonLink'
 import { 
   MagnifyingGlassIcon, 
   ArrowPathIcon, 
@@ -31,7 +31,7 @@ export default function FilterForm({ className, onSearch, onRefresh }: Props) {
 
   return (
     <div className={`flex w-full gap-10 ${className}`}>
-      <form method="post" action="" onSubmit={handleSubmit} className="flex grow gap-2">
+      <form method="post" action="" onSubmit={handleSubmit} className="flex grow gap-3">
         <label htmlFor="query" className="font-bold pt-2">
           Search:
         </label>
@@ -44,18 +44,18 @@ export default function FilterForm({ className, onSearch, onRefresh }: Props) {
           value={query}
           onChange={e => setQuery(e.target.value)}
         />
-        <SecondaryButton>
+        <PrimaryButton>
           <MagnifyingGlassIcon className="w-4 h-4" />
           Search
-        </SecondaryButton>
-        <PlainButton className="px-1" onClick={handleRefresh}>
+        </PrimaryButton>
+        <PlainButton className="px-0" onClick={handleRefresh}>
           <ArrowPathIcon className="w-5 h-5" />
         </PlainButton>
       </form>
-      <PrimaryButtonLink to="/training-data/add">
+      <SecondaryButtonLink to="/training-data/add">
         <PlusIcon className="w-4 h-4" />
         Add
-      </PrimaryButtonLink>
+      </SecondaryButtonLink>
     </div>
   )
 }

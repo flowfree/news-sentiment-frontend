@@ -4,6 +4,7 @@ import NewsCard from '../../components/NewsCard'
 import SentimentLabel from '../../components/SentimentLabel'
 import PrimaryButton from '../../components/PrimaryButton'
 import FilterForm from './FilterForm'
+import SecondaryButton from '../../components/SecondaryButton'
 
 const NEWS_ENDPOINT_PATH = '/data-labeling/news'
 
@@ -84,7 +85,7 @@ export default function NewsList() {
         onRefresh={handleRefresh}
       />
 
-      <div className="grid grid-cols-1 mt-5 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-8">
+      <div className="grid grid-cols-1 mt-10 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-8">
         {newsList.map((news) => (
           <NewsCard 
             key={news.id} 

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import NewsService from '../../services/NewsService'
 import NewsCard from '../../components/NewsCard'
 import SentimentLabel from '../../components/SentimentLabel'
+import SecondaryButtonLink from '../../components/SecondaryButtonLink'
 
 export default function AddNews() {
   const [url, setUrl] = useState('')
@@ -65,13 +66,15 @@ export default function AddNews() {
   }
 
   return (
+    <div>
+
     <div className="w-full mt-10">
-      <div className="max-w-4xl">
-        <form method="post" action="" className="w-full flex gap-2">
+      <div className="flex gap-10">
+        <form method="post" action="" className="flex grow gap-2">
           <input 
             type="text" 
             name="url"
-            className="block grow rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className="block grow max-w-2xl rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             placeholder="Enter News URL"
             autoComplete="off"
             value={url}
@@ -96,11 +99,17 @@ export default function AddNews() {
             {isSubmitting ? 'Adding...' : 'Add'}
           </button>
         </form>
+        <SecondaryButtonLink to="/training-data">
+          View all data
+        </SecondaryButtonLink>
       </div>
-      <div>
-        {errorMessage && <p className="pt-1 text-sm text-red-700">{errorMessage}</p>}
-      </div>
+    </div>
 
+    <div>
+      {errorMessage && <p className="pt-1 text-sm text-red-700">{errorMessage}</p>}
+    </div>
+
+    <div>
       <div className="mx-auto max-w-2xl lg:max-w-7xl">
         {newsList.length > 0 && (
           <p className="mt-5 mb-2 font-bold">
@@ -124,6 +133,7 @@ export default function AddNews() {
         </div>
       </div>
 
+    </div>
     </div>
   )
 }
