@@ -1,12 +1,19 @@
 import { useState } from 'react'
 
 interface SentimentLabelProps {
-  label: 'positive' | 'neutral' | 'negative'
+  sentiment: 'positive' | 'neutral' | 'negative'
+  className?: string
   onUpdate?: (newSentiment: string) => void
+  children?: React.ReactNode
 }
 
-export default function SentimentLabel({ label, onUpdate }: SentimentLabelProps) {
-  const [currentSentiment, setCurrentSentiment] = useState<string>(label)
+export default function SentimentLabel({ 
+  sentiment, 
+  className,
+  onUpdate,
+  children
+}: SentimentLabelProps) {
+  const [currentSentiment, setCurrentSentiment] = useState<string>(sentiment)
   const [otherSentiments, setOtherSentiments] = useState<string[]>([])
   const SENTIMENTS = ['positive', 'neutral', 'negative']
 
@@ -41,11 +48,11 @@ export default function SentimentLabel({ label, onUpdate }: SentimentLabelProps)
   return (
     <>
       <button 
-        className={`inline-flex items-center border rounded ${getColor(currentSentiment)} px-2 py-0 text-sm font-medium capitalize`}
+        className={`inline-flex items-center border rounded px-2 py-0 text-sm font-medium ${ children ? '' : 'capitalize' } ${className} ${getColor(currentSentiment)}`}
         onClick={handleEdit}
         title="Click to edit the sentiment"
       >
-        {currentSentiment}
+        {children ? children : currentSentiment}
       </button>
       {otherSentiments.map(s => (
         <button 

@@ -34,6 +34,11 @@ class NewsService extends BaseService {
   deleteNews(id: number) {
     return this.client.delete(`/data-labeling/news/${id}`)
   }
+
+  getSentiment(url: string) {
+    const params = { url }
+    return this.client.get(`/news-sentiment`, { params })
+  }
 }
 
 export default NewsService

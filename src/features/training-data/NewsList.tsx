@@ -92,7 +92,7 @@ export default function NewsList() {
             onDelete={handleDelete}
             sentiment={
               <SentimentLabel 
-                label={news.sentiment} 
+                sentiment={news.sentiment} 
                 onUpdate={s => handleUpdateSentiment(news, s)}
               />
             }

@@ -21,7 +21,7 @@ export default function Layout({ children }: LayoutProps) {
                 Training Data
               </Link>
               <Link to="/model-test" className='border-transparent hover:border-indigo-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'>
-                Test
+                Test Model
               </Link>
             </div>
           </div>

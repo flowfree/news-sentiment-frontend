@@ -1,16 +1,34 @@
 import { useState } from 'react'
 import { PrimaryButton, SecondaryButton } from '../../components/Buttons'
+import NewsService from '../../services/NewsService'
+import SentimentLabel from '../../components/SentimentLabel'
+import Moment from 'react-moment'
 
 export default function ModelTest() {
   const [url, setUrl] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [news, setNews] = useState<News>()
+  const newsService = new NewsService()
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    console.log('submit')
+
+    try {
+      setIsSubmitting(true)
+      setNews(undefined)
+      const response = await newsService.getSentiment(url)
+      setNews(response.data)
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   function handleReset(e: React.MouseEvent) {
+    e.preventDefault()
     setUrl('')
+    setNews(undefined)
   }
 
   return (
@@ -26,46 +44,53 @@ export default function ModelTest() {
           onChange={e => setUrl(e.target.value)}
         />
         <PrimaryButton className="w-48">
-          Check Sentiment
+          {isSubmitting ? 'Checking sentiment...' : 'Check sentiment'}
         </PrimaryButton>
         <SecondaryButton onClick={handleReset}>
           Reset
         </SecondaryButton>
       </form>
-      <Preview />
+      {news && <Preview news={news} />}
     </div>
   )
 }
 
-function Preview() {
+interface PreviewProps {
+  news: News
+}
+
+function Preview({ news }: PreviewProps) {
+  const s = news.sentiment
+  const borderColor = (s === 'positive' ? 'green' : (s === 'negative' ? 'red' : 'gray'))
+
   return (
-    <div className="group relative mt-10 flex flex-col gap-5 md:flex-row overflow-hidden rounded-lg border border-gray-200">
-      <div className="aspect-w-4 aspect-h-3 bg-gray-200 sm:aspect-none sm:h-48">
-        <a href="https://crypto.news/north-korean-hackers-stole-record-amount-of-crypto-in-2022/" target="_blank">
-          <img src="https://crypto.news/app/uploads/2023/02/hacker-north-korea.jpeg" className="h-full w-full object-cover object-center" alt="image" />
+    <div className={`group relative mt-10 flex flex-col gap-5 md:flex-row overflow-hidden rounded-lg border border-${borderColor}-300`}>
+      <div className="aspect-[4/3] bg-gray-200 h-56">
+        <a href={news.url} target="_blank">
+          <img src={news.imageUrl} className="h-full w-full object-cover object-center" alt="image" />
         </a>
       </div>
       <div className="flex flex-1 flex-col space-y-3 py-3">
+        <div className="flex gap-x-2 text-base">
+          {news.sentiment && (
+            <SentimentLabel sentiment={news.sentiment} className="text-base">
+              Sentiment is {news.sentiment}
+            </SentimentLabel>
+          )}
+        </div>
         <h3 className="text-2xl font-medium text-gray-900 line-clamp-2">
           <a href="https://crypto.news/north-korean-hackers-stole-record-amount-of-crypto-in-2022/" target="_blank">
-            North Korean hackers stole record amount of crypto in 2022
+            {news.title}
           </a>
         </h3>
-        <p className="text-base text-gray-500">
+        <p className="text-base text-gray-700">
           <span className="line-clamp-2">
-
-          Per a UN assessment, North Korean-affiliated hackers stole digital assets valued between $630 million and $1 billion last year by attacking the networks of international aerospace and defense business.
-          </span>
-          <span className="block text-sm font-medium text-gray-900 ">
-            crypto.news
+            {news.description}
           </span>
         </p>
-        <div className="flex gap-x-2 text-base">
-          Sentiment: 
-          <span className="inline-flex items-center border rounded bg-pink-100 text-pink-800 border-pink-200 px-2 py-0 text-sm font-medium capitalize" title="Click to edit the sentiment">
-            Negative
-          </span>
-        </div>
+        <p className="text-base text-gray-500">
+          <Moment format="MMM DD, YYYY">{news.publishedTime}</Moment>
+        </p>
       </div>
     </div>
   )
