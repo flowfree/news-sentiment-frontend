@@ -4,7 +4,7 @@ import NewsService from '../../services/NewsService'
 import SentimentLabel from '../../components/SentimentLabel'
 import Moment from 'react-moment'
 
-export default function ModelTest() {
+export default function GetSentiment() {
   const [url, setUrl] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [news, setNews] = useState<News>()
@@ -32,8 +32,18 @@ export default function ModelTest() {
   }
 
   return (
-    <div className="mt-10 max-w-5xl mx-auto">
-      <form method="post" action="" onSubmit={handleSubmit} className="flex grow gap-3">
+    <div className="mt-10 max-w-4xl mx-auto">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+          Crypto News Sentiment
+        </h1>
+        <p className="mt-5 max-w-lg mx-auto text-lg leading-8 text-gray-600">
+          {/* From news to emotions: decoding sentiment with AI. */}
+          {/* Get a pulse on the news with our sentiment analysis - Stay informed, Stay ahead */}
+          Get the pulse of the news with our sentiment analysis, uncovering the emotions behind the headlines.
+        </p>
+      </div>
+      <form method="post" action="" onSubmit={handleSubmit} className="mt-10 flex grow gap-2">
         <input 
           type="text" 
           name="url"
@@ -43,10 +53,10 @@ export default function ModelTest() {
           placeholder="Enter news URL"
           onChange={e => setUrl(e.target.value)}
         />
-        <PrimaryButton className="w-48">
-          {isSubmitting ? 'Checking sentiment...' : 'Check sentiment'}
+        <PrimaryButton className="w-32">
+          {isSubmitting ? 'Checking...' : 'Check'}
         </PrimaryButton>
-        <SecondaryButton onClick={handleReset}>
+        <SecondaryButton className="w-32" onClick={handleReset}>
           Reset
         </SecondaryButton>
       </form>
@@ -92,6 +102,9 @@ function Preview({ news }: PreviewProps) {
           <Moment format="MMM DD, YYYY">{news.publishedTime}</Moment>
         </p>
       </div>
+      <span className="border-green-300 hidden" />
+      <span className="border-red-300 hidden" />
+      <span className="border-gray-300 hidden" />
     </div>
   )
 }

@@ -4,19 +4,18 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom'
+import GetSentiment from './features/get-sentiment/GetSentiment'
 import AddNews from './features/training-data/AddNews'
 import NewsList from './features/training-data/NewsList'
-import ModelTest from './features/model-test/ModelTest'
 import Layout from './components/Layout'
 
 export default function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<Navigate to="/training-data" replace={true} />} />
+        <Route path="/" element={<GetSentiment />} />
         <Route path="/training-data" element={<NewsList />} />
         <Route path="/training-data/add" element={<AddNews />} />
-        <Route path="/model-test" element={<ModelTest />} />
       </Routes>
     </Layout>
   )
