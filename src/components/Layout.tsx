@@ -11,7 +11,7 @@ export default function Layout({ children }: LayoutProps) {
       <div className="max-w-full px-4 sm:px-6 lg:px-8 border-b border-gray-200">
         <div className="flex h-14 justify-between">
           <div className="flex w-full">
-            <div className="hidden flex-grow sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+            <div className="hidden flex-grow sm:-my-px sm:flex sm:space-x-8">
               <Link to="/" className='border-transparent hover:border-indigo-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'>
                 Get Sentiment
               </Link>

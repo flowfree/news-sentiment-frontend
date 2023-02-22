@@ -38,9 +38,7 @@ export default function GetSentiment() {
           Crypto News Sentiment
         </h1>
         <p className="mt-5 max-w-lg mx-auto text-lg leading-8 text-gray-600">
-          {/* From news to emotions: decoding sentiment with AI. */}
-          {/* Get a pulse on the news with our sentiment analysis - Stay informed, Stay ahead */}
-          Get the pulse of the news with our sentiment analysis, uncovering the emotions behind the headlines.
+          Get the pulse of the news with our sentiment analysis and uncovering the emotions behind the headlines.
         </p>
       </div>
       <form method="post" action="" onSubmit={handleSubmit} className="mt-10 flex grow gap-2">
@@ -80,7 +78,7 @@ function Preview({ news }: PreviewProps) {
           <img src={news.imageUrl} className="h-full w-full object-cover object-center" alt="image" />
         </a>
       </div>
-      <div className="flex flex-1 flex-col space-y-3 py-3">
+      <div className="flex flex-1 flex-col space-y-3 py-3 pr-5">
         <div className="flex gap-x-2 text-base">
           {news.sentiment && (
             <SentimentLabel sentiment={news.sentiment} className="text-base">
